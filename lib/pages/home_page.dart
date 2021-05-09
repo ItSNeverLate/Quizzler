@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:quizzler/domain/questions_brain.dart';
@@ -39,46 +41,69 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 5,
             child: Center(
-              child: Text(
-                question.questionText,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, color: Colors.white),
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  question.questionText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
               ),
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
+            child: Container(
+              width: window.physicalSize.width,
+              padding: const EdgeInsets.all(20.0),
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Colors.green),
                 onPressed: () => _checkAnswer(true),
-                child: Text('TRUE'),
+                child: Text(
+                  'TRUE',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
+            child: Container(
+              width: window.physicalSize.width,
+              padding: const EdgeInsets.all(20.0),
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () => _checkAnswer(false),
-                child: Text('FALSE'),
+                child: Text(
+                  'FALSE',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
           Expanded(
-            child: Row(
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              scrollDirection: Axis.horizontal,
               children: answersKeeper
                   .map((answer) => answer
                       ? Icon(
                           Icons.check,
                           color: Colors.green,
+                          size: 45.0,
                         )
                       : Icon(
                           Icons.close,
                           color: Colors.red,
+                          size: 45.0,
                         ))
                   .toList(),
             ),
-          )
+          ),
         ],
       ),
     );
