@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:quizzler/domain/questions_brain.dart';
 import 'package:quizzler/models/question.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuestionBrain _questionBrain = QuestionBrain();
 
@@ -19,7 +20,14 @@ class _HomePageState extends State<HomePage> {
   void _getQuestion() {
     Question? nextQuestion = _questionBrain.getNextQuestion();
     if (nextQuestion == null) {
-      print('the last');
+      int trueAnswersCount =
+          answersKeeper.where((answer) => answer).toList().length;
+      Alert(
+        context: context,
+        title: "RESULT",
+        desc: '$trueAnswersCount / ${answersKeeper.length}',
+      ).show();
+      answersKeeper.clear();
     } else {
       question = nextQuestion;
     }
